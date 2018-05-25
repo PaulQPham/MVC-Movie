@@ -21,13 +21,34 @@ namespace MvcMovie.Controllers
 
         // GET: Movies
         // Requires using Microsoft.AspNetCore.Mvc.Rendering;
-        public async Task<ViewResult> Index(string movieGenre, string movieString, string actor, int? page)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string movieGenre, string movieString, string actor, int? page)
         {
-            //ViewBag.Currentsort =
-            // Use LINQ to get list of genres.
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.GenreSortParm = sortOrder == "Genre" ? "genre_desc" : "Genre";
+            ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
+            ViewBag.RatingSortParm = sortOrder == "Rating" ? "rating_desc" : "Rating";
+
+            if (actor != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                actor = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = actor;
+
             IQueryable<string> genreQuery = from m in _context.Movie
                                             orderby m.Genre
                                             select m.Genre;
+
+            IQueryable<string> actorQuery = from m in _context.Movie
+                                            join r in _context.MovieRole on m.Title equals r.Movie
+                                            where r.Actor.Contains(actor)
+                                            select m.Title;
 
             var movies = from m in _context.Movie
                          select m;
@@ -44,21 +65,47 @@ namespace MvcMovie.Controllers
 
             if (!String.IsNullOrEmpty(actor))
             {
-                IQueryable<string> actorQuery = from m in _context.Movie
-                                                join r in _context.MovieRole on m.Title equals r.Movie
-                                                where r.Actor == actor
-                                                select m.Title;
-
                 movies = movies.Where(m => actorQuery.Contains(m.Title));
             }
 
-            int pageSize = 7;
-            int pageNumber = (page ?? 1);
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    movies = movies.OrderByDescending(m => m.Title);
+                    break;
+                case "Date":
+                    movies = movies.OrderBy(m => m.ReleaseDate);
+                    break;
+                case "date_desc":
+                    movies = movies.OrderByDescending(m => m.ReleaseDate);
+                    break;
+                case "Genre":
+                    movies = movies.OrderBy(m => m.Genre);
+                    break;
+                case "genre_desc":
+                    movies = movies.OrderByDescending(m => m.Genre);
+                    break;
+                case "Price":
+                    movies = movies.OrderBy(m => m.Price);
+                    break;
+                case "price_desc":
+                    movies = movies.OrderByDescending(m => m.Price);
+                    break;
+                case "Rating":
+                    movies = movies.OrderBy(m => m.Rating);
+                    break;
+                case "rating_desc":
+                    movies = movies.OrderByDescending(m => m.Rating);
+                    break;
+                default:
+                    movies = movies.OrderBy(m => m.Title);
+                    break;
+            }
 
             var movieGenreVM = new MovieGenreViewModel();
             movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
-            movieGenreVM.movies = await movies.ToListAsync();
-            //return(ViewBag.movies.ToPagedList(pageNumber, pageSize));
+            movieGenreVM.movies = await PaginatedList<Movie>.CreateAsync(movies.AsNoTracking(), page ?? 1, 7);
+
             return View(movieGenreVM);
         }
 

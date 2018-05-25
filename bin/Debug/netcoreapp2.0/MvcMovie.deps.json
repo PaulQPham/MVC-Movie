@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "d029c3ad1c7db427ac97c1ec798611f22414b42b"
+    "signature": "529b158b2f4eaa900961160a3bd20de504d63db3"
   },
   "compilationOptions": {
     "defines": [
@@ -24,6 +24,7 @@
       "MvcMovie/1.0.0": {
         "dependencies": {
           "CsvHelper": "7.1.0",
+          "EntityFramework": "6.2.0",
           "Microsoft.AspNet.Mvc": "5.2.6",
           "Microsoft.AspNetCore.All": "2.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.3",
@@ -52,7 +53,7 @@
           "lib/netstandard2.0/CsvHelper.dll": {}
         }
       },
-      "EntityFramework/6.1.1": {
+      "EntityFramework/6.2.0": {
         "runtime": {
           "lib/net45/EntityFramework.SqlServer.dll": {},
           "lib/net45/EntityFramework.dll": {}
@@ -2587,7 +2588,7 @@
       },
       "PagedList.EntityFramework/1.0.1": {
         "dependencies": {
-          "EntityFramework": "6.1.1",
+          "EntityFramework": "6.2.0",
           "PagedList": "1.17.0"
         },
         "runtime": {
@@ -4345,12 +4346,12 @@
       "path": "csvhelper/7.1.0",
       "hashPath": "csvhelper.7.1.0.nupkg.sha512"
     },
-    "EntityFramework/6.1.1": {
+    "EntityFramework/6.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-FdXtqmcaIMLnjS46aQjpQGKaV0PuPhAIYAVHN6vB7UMjMr4iLZsMIz4Nk7m31iUvh+hNPF9t7tZkW0CczGNr6A==",
-      "path": "entityframework/6.1.1",
-      "hashPath": "entityframework.6.1.1.nupkg.sha512"
+      "sha512": "sha512-ptGyXOf26qLrtn+2doAmylIlCxOnBJANwlyyLrXDmqIk9O18IzLWHyxDwwAyhgXkxmbiaA0WNpRy67WRReInBw==",
+      "path": "entityframework/6.2.0",
+      "hashPath": "entityframework.6.2.0.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",
