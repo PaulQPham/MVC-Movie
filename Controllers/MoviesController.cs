@@ -21,8 +21,9 @@ namespace MvcMovie.Controllers
 
         // GET: Movies
         // Requires using Microsoft.AspNetCore.Mvc.Rendering;
-        public async Task<IActionResult> Index(string movieGenre, string movieString, string actor, int? page)
+        public async Task<ViewResult> Index(string movieGenre, string movieString, string actor, int? page)
         {
+            //ViewBag.Currentsort =
             // Use LINQ to get list of genres.
             IQueryable<string> genreQuery = from m in _context.Movie
                                             orderby m.Genre
@@ -57,8 +58,7 @@ namespace MvcMovie.Controllers
             var movieGenreVM = new MovieGenreViewModel();
             movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
             movieGenreVM.movies = await movies.ToListAsync();
-
-            movieGenreVM.movies.ToPagedList(pageNumber, pageSize);
+            //return(ViewBag.movies.ToPagedList(pageNumber, pageSize));
             return View(movieGenreVM);
         }
 

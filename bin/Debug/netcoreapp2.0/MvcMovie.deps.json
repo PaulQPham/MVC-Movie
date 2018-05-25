@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "af2da035ce43a60712bd15e9a63735e985d81734"
+    "signature": "d029c3ad1c7db427ac97c1ec798611f22414b42b"
   },
   "compilationOptions": {
     "defines": [
@@ -24,10 +24,13 @@
       "MvcMovie/1.0.0": {
         "dependencies": {
           "CsvHelper": "7.1.0",
+          "Microsoft.AspNet.Mvc": "5.2.6",
           "Microsoft.AspNetCore.All": "2.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.3",
           "Microsoft.NETCore.App": "2.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.0",
+          "PagedList": "1.17.0",
+          "PagedList.EntityFramework": "1.0.1",
           "PagedList.Mvc": "4.5.0"
         },
         "runtime": {
@@ -47,6 +50,16 @@
         },
         "compile": {
           "lib/netstandard2.0/CsvHelper.dll": {}
+        }
+      },
+      "EntityFramework/6.1.1": {
+        "runtime": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        },
+        "compile": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
         }
       },
       "Libuv/1.10.0": {
@@ -134,6 +147,44 @@
         },
         "compile": {
           "lib/netstandard1.6/Microsoft.AI.DependencyCollector.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Mvc/5.2.6": {
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "3.2.6",
+          "Microsoft.AspNet.WebPages": "3.2.6"
+        },
+        "runtime": {
+          "lib/net45/System.Web.Mvc.dll": {}
+        },
+        "compile": {
+          "lib/net45/System.Web.Mvc.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Razor/3.2.6": {
+        "runtime": {
+          "lib/net45/System.Web.Razor.dll": {}
+        },
+        "compile": {
+          "lib/net45/System.Web.Razor.dll": {}
+        }
+      },
+      "Microsoft.AspNet.WebPages/3.2.6": {
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "3.2.6",
+          "Microsoft.Web.Infrastructure": "1.0.0"
+        },
+        "runtime": {
+          "lib/net45/System.Web.Helpers.dll": {},
+          "lib/net45/System.Web.WebPages.Deployment.dll": {},
+          "lib/net45/System.Web.WebPages.Razor.dll": {},
+          "lib/net45/System.Web.WebPages.dll": {}
+        },
+        "compile": {
+          "lib/net45/System.Web.Helpers.dll": {},
+          "lib/net45/System.Web.WebPages.Deployment.dll": {},
+          "lib/net45/System.Web.WebPages.Razor.dll": {},
+          "lib/net45/System.Web.WebPages.dll": {}
         }
       },
       "Microsoft.AspNetCore/2.0.0": {
@@ -2432,6 +2483,14 @@
           "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll": {}
         }
       },
+      "Microsoft.Web.Infrastructure/1.0.0": {
+        "runtime": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        },
+        "compile": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        }
+      },
       "Microsoft.Win32.Primitives/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.0.0",
@@ -2524,6 +2583,18 @@
         },
         "compile": {
           "lib/net40/PagedList.dll": {}
+        }
+      },
+      "PagedList.EntityFramework/1.0.1": {
+        "dependencies": {
+          "EntityFramework": "6.1.1",
+          "PagedList": "1.17.0"
+        },
+        "runtime": {
+          "lib/net45/PagedList.EntityFramework.dll": {}
+        },
+        "compile": {
+          "lib/net45/PagedList.EntityFramework.dll": {}
         }
       },
       "PagedList.Mvc/4.5.0": {
@@ -4274,6 +4345,13 @@
       "path": "csvhelper/7.1.0",
       "hashPath": "csvhelper.7.1.0.nupkg.sha512"
     },
+    "EntityFramework/6.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FdXtqmcaIMLnjS46aQjpQGKaV0PuPhAIYAVHN6vB7UMjMr4iLZsMIz4Nk7m31iUvh+hNPF9t7tZkW0CczGNr6A==",
+      "path": "entityframework/6.1.1",
+      "hashPath": "entityframework.6.1.1.nupkg.sha512"
+    },
     "Libuv/1.10.0": {
       "type": "package",
       "serviceable": true,
@@ -4301,6 +4379,27 @@
       "sha512": "sha512-RWxdX90MY6tNF8S5lwRvJcHiBMIWwVLCxd4TGIEl3X0yAKaolY2vs4zTCvyCIVkEAMs1aInTgWkYwOjzYvAHWw==",
       "path": "microsoft.applicationinsights.dependencycollector/2.4.1",
       "hashPath": "microsoft.applicationinsights.dependencycollector.2.4.1.nupkg.sha512"
+    },
+    "Microsoft.AspNet.Mvc/5.2.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kBiyGUUBLE8JyQDTdmsBW0MyKg3VbB6FCrhu2pZiT9uOdS7uqADryIApWnUWmzDj4+4Q3/c/sgBM+Y+kDUFTyg==",
+      "path": "microsoft.aspnet.mvc/5.2.6",
+      "hashPath": "microsoft.aspnet.mvc.5.2.6.nupkg.sha512"
+    },
+    "Microsoft.AspNet.Razor/3.2.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AmdtrCaQtafgIzjaJjWjntWCE28c9CZnwSOFBC7zqt9OWJ9+uaxDQYSF1CHlyQOgTCzU7U9kux45cEoXXrwGDw==",
+      "path": "microsoft.aspnet.razor/3.2.6",
+      "hashPath": "microsoft.aspnet.razor.3.2.6.nupkg.sha512"
+    },
+    "Microsoft.AspNet.WebPages/3.2.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Cr2MOsKLhxR0aM5LlrTKYPxbDZk8IIdEyxm7qcs8v1hn7VFgk9igvCM4R/sYqy6MN+9v3ry77D7aCsp542t1Dw==",
+      "path": "microsoft.aspnet.webpages/3.2.6",
+      "hashPath": "microsoft.aspnet.webpages.3.2.6.nupkg.sha512"
     },
     "Microsoft.AspNetCore/2.0.0": {
       "type": "package",
@@ -5464,6 +5563,13 @@
       "path": "microsoft.visualstudio.web.codegenerators.mvc/2.0.0",
       "hashPath": "microsoft.visualstudio.web.codegenerators.mvc.2.0.0.nupkg.sha512"
     },
+    "Microsoft.Web.Infrastructure/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FNmvLn5m2LTU/Rs2KWVo0SIIh9Ek+U0ojex7xeDaSHw/zgEP77A8vY5cVWgUtBGS8MJfDGNn8rpXJWEIQaPwTg==",
+      "path": "microsoft.web.infrastructure/1.0.0",
+      "hashPath": "microsoft.web.infrastructure.1.0.0.nupkg.sha512"
+    },
     "Microsoft.Win32.Primitives/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -5505,6 +5611,13 @@
       "sha512": "sha512-Ou6F3WKXh49hOo0TxWM+SkIGuKllYPuPPvnSYOlQ1sTrtuEyuDUhYbSJd5Sdb06i/sWUJZTjiUecEs3Ht/Hx3g==",
       "path": "pagedlist/1.17.0",
       "hashPath": "pagedlist.1.17.0.nupkg.sha512"
+    },
+    "PagedList.EntityFramework/1.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fzveod9cs0OABQK4HTTdD01BugMBu/GKpMoqMZ51XQPfpUbbvl3NodCCF0Pp11G0z62SG/FEx0kyO+arJr97uA==",
+      "path": "pagedlist.entityframework/1.0.1",
+      "hashPath": "pagedlist.entityframework.1.0.1.nupkg.sha512"
     },
     "PagedList.Mvc/4.5.0": {
       "type": "package",

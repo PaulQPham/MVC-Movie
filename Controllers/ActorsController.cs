@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MvcMovie.Models;
+using PagedList.EntityFramework;
+using PagedList;
+
 
 namespace MvcMovie.Controllers
 {
@@ -19,9 +22,58 @@ namespace MvcMovie.Controllers
         }
 
         // GET: Actors
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(await _context.Actor.ToListAsync());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.HometownSortParm = sortOrder == "Hometown" ? "hometown_desc" : "Hometown";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var actors = from a in _context.Actor
+                           select a;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                actors = actors.Where(a => a.Name.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    actors = actors.OrderByDescending(a => a.Name);
+                    break;
+                case "Date":
+                    actors = actors.OrderBy(a => a.BirthDate);
+                    break;
+                case "date_desc":
+                    actors = actors.OrderByDescending(a => a.BirthDate);
+                    break;
+                case "Hometown":
+                    actors = actors.OrderBy(a => a.Hometown);
+                    break;
+                case "hometown_desc":
+                    actors = actors.OrderByDescending(a => a.Hometown);
+                    break;
+                default:
+                    actors = actors.OrderBy(a => a.Name);
+                    break;
+            }
+
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(await PaginatedList<Actor>.CreateAsync(actors.AsNoTracking(), page ?? 1, 10));
         }
 
         // GET: Actors/Details/5
