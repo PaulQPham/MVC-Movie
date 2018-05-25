@@ -42,6 +42,12 @@
 </div>
 <div>
     <h4>Movie Roles</h4>
-    <hr />
+@{ 
+    IQueryable<MovieRole> query = from r in MvcMovieContext.MovieRole
+                               select r;
 
+}
+    
+
+    <hr />
 </div>
