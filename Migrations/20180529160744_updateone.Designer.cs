@@ -11,8 +11,8 @@ using System;
 namespace MvcMovie.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    [Migration("20180524193901_Image")]
-    partial class Image
+    [Migration("20180529160744_updateone")]
+    partial class updateone
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace MvcMovie.Migrations
 
             modelBuilder.Entity("MvcMovie.Models.Actor", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("ActorsID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("BirthDate");
@@ -34,14 +34,14 @@ namespace MvcMovie.Migrations
 
                     b.Property<string>("Name");
 
-                    b.HasKey("ID");
+                    b.HasKey("ActorsID");
 
                     b.ToTable("Actor");
                 });
 
             modelBuilder.Entity("MvcMovie.Models.Movie", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("MoviesID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Genre")
@@ -62,7 +62,7 @@ namespace MvcMovie.Migrations
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.HasKey("ID");
+                    b.HasKey("MoviesID");
 
                     b.ToTable("Movie");
                 });
@@ -74,13 +74,34 @@ namespace MvcMovie.Migrations
 
                     b.Property<string>("Actor");
 
+                    b.Property<int?>("ActorsID");
+
                     b.Property<string>("Character");
 
                     b.Property<string>("Movie");
 
+                    b.Property<int?>("MoviesID");
+
                     b.HasKey("ID");
 
+                    b.HasIndex("ActorsID");
+
+                    b.HasIndex("MoviesID");
+
                     b.ToTable("MovieRole");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.MovieRole", b =>
+                {
+                    b.HasOne("MvcMovie.Models.Actor", "Actors")
+                        .WithMany("MovieRoles")
+                        .HasForeignKey("ActorsID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MvcMovie.Models.Movie", "Movies")
+                        .WithMany("MovieRoles")
+                        .HasForeignKey("MoviesID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

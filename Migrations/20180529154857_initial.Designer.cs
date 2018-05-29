@@ -11,8 +11,8 @@ using System;
 namespace MvcMovie.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    [Migration("20180524193151_Actor")]
-    partial class Actor
+    [Migration("20180529154857_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,7 +32,8 @@ namespace MvcMovie.Migrations
 
                     b.Property<string>("Hometown");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
@@ -47,6 +48,8 @@ namespace MvcMovie.Migrations
                     b.Property<string>("Genre")
                         .IsRequired()
                         .HasMaxLength(30);
+
+                    b.Property<string>("Image");
 
                     b.Property<decimal>("Price");
 
@@ -78,7 +81,26 @@ namespace MvcMovie.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("Actor");
+
+                    b.HasIndex("Movie");
+
                     b.ToTable("MovieRole");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.MovieRole", b =>
+                {
+                    b.HasOne("MvcMovie.Models.Actor", "Actors")
+                        .WithMany("MovieRoles")
+                        .HasForeignKey("Actor")
+                        .HasPrincipalKey("Name")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MvcMovie.Models.Movie", "Movies")
+                        .WithMany("MovieRoles")
+                        .HasForeignKey("Movie")
+                        .HasPrincipalKey("Title")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

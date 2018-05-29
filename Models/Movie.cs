@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MvcMovie.Models
 {
     public class Movie
     {
-        public int ID { get; set; }
-
+        [Key]
+        public int MoviesID { get; set; }
         [StringLength(60, MinimumLength = 3)]
         [Required]
         public string Title { get; set; }
@@ -30,5 +31,7 @@ namespace MvcMovie.Models
         public string Rating { get; set; }
 
         public string Image { get; set; }
+
+        public List<MovieRole> MovieRoles { get; set; }
     }
 }

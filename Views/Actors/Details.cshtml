@@ -37,15 +37,29 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.ActorsID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
 <div>
     <h4>Movie Roles</h4>
-@{ 
-    IQueryable<MovieRole> query = from r in MvcMovieContext.MovieRole
-                               select r;
+@{
+    var query = from r in Model.MovieRoles
+                select r;
 
+    @foreach (var item in query)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Actor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Character)
+            </td>
+        </tr>
+    }
 }
     
 

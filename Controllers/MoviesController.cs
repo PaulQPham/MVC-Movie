@@ -46,8 +46,8 @@ namespace MvcMovie.Controllers
                                             select m.Genre;
 
             IQueryable<string> actorQuery = from m in _context.Movie
-                                            join r in _context.MovieRole on m.Title equals r.Movie
-                                            where r.Actor.Contains(actor)
+                                            join r in _context.MovieRole on m.Title equals r.Movies.Title
+                                            where r.Actors.Name.Contains(actor)
                                             select m.Title;
 
             var movies = from m in _context.Movie
@@ -123,7 +123,7 @@ namespace MvcMovie.Controllers
             }
 
             var movie = await _context.Movie
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(m => m.MoviesID == id);
             if (movie == null)
             {
                 return NotFound();
@@ -162,7 +162,7 @@ namespace MvcMovie.Controllers
                 return NotFound();
             }
 
-            var movie = await _context.Movie.SingleOrDefaultAsync(m => m.ID == id);
+            var movie = await _context.Movie.SingleOrDefaultAsync(m => m.MoviesID == id);
             if (movie == null)
             {
                 return NotFound();
@@ -177,7 +177,7 @@ namespace MvcMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
         {
-            if (id != movie.ID)
+            if (id != movie.MoviesID)
             {
                 return NotFound();
             }
@@ -191,7 +191,7 @@ namespace MvcMovie.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MovieExists(movie.ID))
+                    if (!MovieExists(movie.MoviesID))
                     {
                         return NotFound();
                     }
@@ -214,7 +214,7 @@ namespace MvcMovie.Controllers
             }
 
             var movie = await _context.Movie
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(m => m.MoviesID == id);
             if (movie == null)
             {
                 return NotFound();
@@ -228,7 +228,7 @@ namespace MvcMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var movie = await _context.Movie.SingleOrDefaultAsync(m => m.ID == id);
+            var movie = await _context.Movie.SingleOrDefaultAsync(m => m.MoviesID == id);
             _context.Movie.Remove(movie);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -236,7 +236,7 @@ namespace MvcMovie.Controllers
 
         private bool MovieExists(int id)
         {
-            return _context.Movie.Any(e => e.ID == id);
+            return _context.Movie.Any(e => e.MoviesID == id);
         }
     }
 }

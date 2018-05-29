@@ -84,7 +84,7 @@ namespace MvcMovie.Controllers
             }
 
             var actor = await _context.Actor
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(m => m.ActorsID == id);
             if (actor == null)
             {
                 return NotFound();
@@ -123,7 +123,7 @@ namespace MvcMovie.Controllers
                 return NotFound();
             }
 
-            var actor = await _context.Actor.SingleOrDefaultAsync(m => m.ID == id);
+            var actor = await _context.Actor.SingleOrDefaultAsync(m => m.ActorsID == id);
             if (actor == null)
             {
                 return NotFound();
@@ -138,7 +138,7 @@ namespace MvcMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name,BirthDate,Hometown,BirthName")] Actor actor)
         {
-            if (id != actor.ID)
+            if (id != actor.ActorsID)
             {
                 return NotFound();
             }
@@ -152,7 +152,7 @@ namespace MvcMovie.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ActorExists(actor.ID))
+                    if (!ActorExists(actor.ActorsID))
                     {
                         return NotFound();
                     }
@@ -175,7 +175,7 @@ namespace MvcMovie.Controllers
             }
 
             var actor = await _context.Actor
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(m => m.ActorsID == id);
             if (actor == null)
             {
                 return NotFound();
@@ -189,7 +189,7 @@ namespace MvcMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var actor = await _context.Actor.SingleOrDefaultAsync(m => m.ID == id);
+            var actor = await _context.Actor.SingleOrDefaultAsync(m => m.ActorsID == id);
             _context.Actor.Remove(actor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -197,7 +197,7 @@ namespace MvcMovie.Controllers
 
         private bool ActorExists(int id)
         {
-            return _context.Actor.Any(e => e.ID == id);
+            return _context.Actor.Any(e => e.ActorsID == id);
         }
     }
 }

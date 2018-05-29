@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,5 +12,9 @@ namespace MvcMovie.Models
         public string Actor { get; set; }
         public string Character { get; set; }
         public string Movie { get; set; }
+        //[ForeignKey("Actor")]
+        public Actor Actors { get; set; }
+        //[ForeignKey("Movie")]
+        public Movie Movies { get; set; }
     }
 }

@@ -41,7 +41,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <a asp-action="Details" asp-route-id="@item.ID">
+                <a asp-action="Details" asp-route-id="@item.ActorsID">
                     @Html.DisplayFor(modelItem => item.Name)
                 </a>
             </td>
@@ -55,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.BirthName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ActorsID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ActorsID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ActorsID">Delete</a>
             </td>
         </tr>
 }    
