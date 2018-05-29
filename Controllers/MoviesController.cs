@@ -21,7 +21,7 @@ namespace MvcMovie.Controllers
 
         // GET: Movies
         // Requires using Microsoft.AspNetCore.Mvc.Rendering;
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string movieGenre, string movieString, string actor, int? page)
+        public async Task<IActionResult> Index(string sortOrder,  string movieGenre, string movieString, string actor, int movieID, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -30,16 +30,17 @@ namespace MvcMovie.Controllers
             ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
             ViewBag.RatingSortParm = sortOrder == "Rating" ? "rating_desc" : "Rating";
 
-            if (actor != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                actor = currentFilter;
-            }
+            //if (actor != null)
+            //{
+            //    page = 1;
+            //}
+            //else
+            //{
+            //    actor = currentFilter;
+            //}
 
             ViewBag.CurrentFilter = actor;
+            ViewBag.CurrentPage = page;
 
             IQueryable<string> genreQuery = from m in _context.Movie
                                             orderby m.Genre
@@ -49,6 +50,17 @@ namespace MvcMovie.Controllers
                                      
                                             where m.Actor.Name == actor
                                             select m.Movie.Title;
+
+            IQueryable<LoadMovieRole> roleQuery = from r in _context.MovieRole
+                            join m in _context.Movie on r.Movie equals m
+                            join a in _context.Actor on r.Actor equals a
+                            where r.Movie.ID == movieID
+                            select new LoadMovieRole { Actor = a.Name, Character = r.Character, Movie = m.Title} ;
+
+
+            IQueryable < string > charQuery = from m in _context.MovieRole
+                                              where m.Movie.ID == movieID
+                                              select m.Character;
 
             var movies = from m in _context.Movie
                          select m;
@@ -105,6 +117,7 @@ namespace MvcMovie.Controllers
             var movieGenreVM = new MovieGenreViewModel();
             movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
             movieGenreVM.movies = await PaginatedList<Movie>.CreateAsync(movies.AsNoTracking(), page ?? 1, 7);
+            movieGenreVM.roles = roleQuery;
 
             return View(movieGenreVM);
         }

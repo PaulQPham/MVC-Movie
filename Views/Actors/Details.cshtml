@@ -42,19 +42,5 @@
 </div>
 
 <h4>Movie Roles</h4>
-@foreach (var item in Model.Roles)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Actor.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Movie.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Character)
-        </td>
-    </tr>
-}
 <hr />
 
