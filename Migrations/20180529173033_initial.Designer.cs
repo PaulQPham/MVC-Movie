@@ -11,9 +11,10 @@ using System;
 namespace MvcMovie.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    partial class MvcMovieContextModelSnapshot : ModelSnapshot
+    [Migration("20180529173033_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,11 +72,15 @@ namespace MvcMovie.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ActorID");
+                    b.Property<int>("ActorID");
+
+                    b.Property<string>("ActorName");
 
                     b.Property<string>("Character");
 
-                    b.Property<int?>("MovieID");
+                    b.Property<int>("MovieID");
+
+                    b.Property<string>("MovieTitle");
 
                     b.HasKey("ID");
 
@@ -90,11 +95,13 @@ namespace MvcMovie.Migrations
                 {
                     b.HasOne("MvcMovie.Models.Actor", "Actor")
                         .WithMany("Roles")
-                        .HasForeignKey("ActorID");
+                        .HasForeignKey("ActorID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("MvcMovie.Models.Movie", "Movie")
                         .WithMany("Roles")
-                        .HasForeignKey("MovieID");
+                        .HasForeignKey("MovieID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

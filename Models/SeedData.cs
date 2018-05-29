@@ -12,6 +12,7 @@ namespace MvcMovie.Models
         
         public static void Initialize(IServiceProvider serviceProvider)
         {
+            
             SeedMovies(serviceProvider);
             SeedActors(serviceProvider);
             SeedMovieRoles(serviceProvider);
@@ -78,9 +79,16 @@ namespace MvcMovie.Models
                 csv.Configuration.Delimiter = "|";
                 csv.Configuration.HeaderValidated = null;
                 csv.Configuration.MissingFieldFound = null;
-                context.MovieRole.AddRange(
-                    csv.GetRecords<MovieRole>()
-                );
+                foreach (var item in csv.GetRecords<LoadMovieRole>())
+                {
+                    var role = new MovieRole
+                    {
+                        Actor = context.Actor.Where(c => c.Name == item.Actor).First(),
+                        Character = item.Character,
+                        Movie = context.Movie.Where(c => c.Title == item.Movie).First()
+                    };
+                    context.MovieRole.Add(role);
+                }
                 context.SaveChanges();
             }
         }

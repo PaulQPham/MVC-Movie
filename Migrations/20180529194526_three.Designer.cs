@@ -11,8 +11,8 @@ using System;
 namespace MvcMovie.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    [Migration("20180524193151_Actor")]
-    partial class Actor
+    [Migration("20180529194526_three")]
+    partial class three
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,6 +48,8 @@ namespace MvcMovie.Migrations
                         .IsRequired()
                         .HasMaxLength(30);
 
+                    b.Property<string>("Image");
+
                     b.Property<decimal>("Price");
 
                     b.Property<string>("Rating")
@@ -70,15 +72,36 @@ namespace MvcMovie.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Actor");
+                    b.Property<string>("ActorName")
+                        .HasColumnName("Actor");
 
                     b.Property<string>("Character");
 
-                    b.Property<string>("Movie");
+                    b.Property<string>("MovieTitle")
+                        .HasColumnName("Movie");
+
+                    b.Property<int?>("Name");
+
+                    b.Property<int?>("Title");
 
                     b.HasKey("ID");
 
+                    b.HasIndex("Name");
+
+                    b.HasIndex("Title");
+
                     b.ToTable("MovieRole");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.MovieRole", b =>
+                {
+                    b.HasOne("MvcMovie.Models.Actor", "Actor")
+                        .WithMany("Roles")
+                        .HasForeignKey("Name");
+
+                    b.HasOne("MvcMovie.Models.Movie", "Movie")
+                        .WithMany("Roles")
+                        .HasForeignKey("Title");
                 });
 #pragma warning restore 612, 618
         }

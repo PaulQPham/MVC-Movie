@@ -45,10 +45,10 @@ namespace MvcMovie.Controllers
                                             orderby m.Genre
                                             select m.Genre;
 
-            IQueryable<string> actorQuery = from m in _context.Movie
-                                            join r in _context.MovieRole on m.Title equals r.Movie
-                                            where r.Actor.Contains(actor)
-                                            select m.Title;
+            IQueryable<string> actorQuery = from m in _context.MovieRole
+                                     
+                                            where m.Actor.Name == actor
+                                            select m.Movie.Title;
 
             var movies = from m in _context.Movie
                          select m;

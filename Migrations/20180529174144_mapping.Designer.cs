@@ -11,8 +11,8 @@ using System;
 namespace MvcMovie.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    [Migration("20180525152537_newm")]
-    partial class newm
+    [Migration("20180529174144_mapping")]
+    partial class mapping
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,15 +72,38 @@ namespace MvcMovie.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Actor");
+                    b.Property<int>("ActorID");
+
+                    b.Property<string>("ActorName")
+                        .HasColumnName("Actor");
 
                     b.Property<string>("Character");
 
-                    b.Property<string>("Movie");
+                    b.Property<int>("MovieID");
+
+                    b.Property<string>("MovieTitle")
+                        .HasColumnName("Movie");
 
                     b.HasKey("ID");
 
+                    b.HasIndex("ActorID");
+
+                    b.HasIndex("MovieID");
+
                     b.ToTable("MovieRole");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.MovieRole", b =>
+                {
+                    b.HasOne("MvcMovie.Models.Actor", "Actor")
+                        .WithMany("Roles")
+                        .HasForeignKey("ActorID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MvcMovie.Models.Movie", "Movie")
+                        .WithMany("Roles")
+                        .HasForeignKey("MovieID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -40,14 +40,21 @@
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
-<div>
-    <h4>Movie Roles</h4>
-@{ 
-    IQueryable<MovieRole> query = from r in MvcMovieContext.MovieRole
-                               select r;
 
+<h4>Movie Roles</h4>
+@foreach (var item in Model.Roles)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Actor.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Movie.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Character)
+        </td>
+    </tr>
 }
-    
+<hr />
 
-    <hr />
-</div>

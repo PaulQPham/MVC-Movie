@@ -11,8 +11,8 @@ using System;
 namespace MvcMovie.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    [Migration("20180524193901_Image")]
-    partial class Image
+    [Migration("20180529183549_alternate")]
+    partial class alternate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,7 +32,8 @@ namespace MvcMovie.Migrations
 
                     b.Property<string>("Hometown");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
@@ -72,15 +73,40 @@ namespace MvcMovie.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Actor");
+                    b.Property<int>("ActorID");
+
+                    b.Property<string>("ActorName")
+                        .HasColumnName("Actor");
 
                     b.Property<string>("Character");
 
-                    b.Property<string>("Movie");
+                    b.Property<int>("MovieID");
+
+                    b.Property<string>("MovieTitle")
+                        .HasColumnName("Movie");
 
                     b.HasKey("ID");
 
+                    b.HasIndex("ActorName");
+
+                    b.HasIndex("MovieTitle");
+
                     b.ToTable("MovieRole");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.MovieRole", b =>
+                {
+                    b.HasOne("MvcMovie.Models.Actor", "Actor")
+                        .WithMany("Roles")
+                        .HasForeignKey("ActorName")
+                        .HasPrincipalKey("Name")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("MvcMovie.Models.Movie", "Movie")
+                        .WithMany("Roles")
+                        .HasForeignKey("MovieTitle")
+                        .HasPrincipalKey("Title")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618
         }
