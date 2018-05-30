@@ -57,11 +57,6 @@ namespace MvcMovie.Controllers
                             where r.Movie.ID == movieID
                             select new LoadMovieRole { Actor = a.Name, Character = r.Character, Movie = m.Title} ;
 
-
-            IQueryable < string > charQuery = from m in _context.MovieRole
-                                              where m.Movie.ID == movieID
-                                              select m.Character;
-
             var movies = from m in _context.Movie
                          select m;
 
