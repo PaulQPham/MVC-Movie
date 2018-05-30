@@ -131,6 +131,8 @@ namespace MvcMovie.Controllers
         // GET: Actors/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var movieCastVM = new MovieCastViewModel();
+
             if (id == null)
             {
                 return NotFound();
@@ -141,7 +143,15 @@ namespace MvcMovie.Controllers
             {
                 return NotFound();
             }
-            return View(actor);
+
+            movieCastVM.actor = _context.Actor.Where(a => a.ID == id).First();
+            movieCastVM.roles = from r in _context.MovieRole
+                                join m in _context.Movie on r.Movie equals m
+                                join a in _context.Actor on r.Actor equals a
+                                where r.Actor.ID == id
+                                select new LoadMovieRole { Actor = a.Name, Character = r.Character, Movie = m.Title };
+
+            return View(movieCastVM);
         }
 
         // POST: Actors/Edit/5
