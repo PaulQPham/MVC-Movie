@@ -137,13 +137,17 @@ namespace MvcMovie.Controllers
             return "From [HttpPost]Index: filter on " + searchString;
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string title)
         {
             var movieCastVM = new MovieCastViewModel();
 
-            if (id == null)
+            if (id == null && title == null)
             {
                 return NotFound();
+            }
+            else if (id == null)
+            {
+                id = _context.Movie.Where(m => m.Title == title).First().ID;
             }
 
             var movie = await _context.Movie

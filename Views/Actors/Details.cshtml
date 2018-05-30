@@ -1,46 +1,68 @@
-﻿@model MvcMovie.Models.Actor
+﻿@model MvcMovie.Models.MovieCastViewModel
 
 @{
-    ViewData["Title"] = @Model.Name;
+    ViewData["Title"] = @Model.actor.Name;
 }
 
-<h2>@Model.Name</h2>
+<h2>@Model.actor.Name</h2>
 
 <div>
     <h4>Details</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.actor.Name)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.actor.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.BirthDate)
+            @Html.DisplayNameFor(model => model.actor.BirthDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.BirthDate)
+            @Html.DisplayFor(model => model.actor.BirthDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Hometown)
+            @Html.DisplayNameFor(model => model.actor.Hometown)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Hometown)
+            @Html.DisplayFor(model => model.actor.Hometown)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.BirthName)
+            @Html.DisplayNameFor(model => model.actor.BirthName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.BirthName)
+            @Html.DisplayFor(model => model.actor.BirthName)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.actor.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
 
 <h4>Movie Roles</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Character</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.roles)
+            {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Movie, "Details", "Movies", new { title = item.Movie })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Character)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 <hr />
 
