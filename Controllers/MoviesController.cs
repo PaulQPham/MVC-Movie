@@ -21,7 +21,7 @@ namespace MvcMovie.Controllers
 
         // GET: Movies
         // Requires using Microsoft.AspNetCore.Mvc.Rendering;
-        public async Task<IActionResult> Index(string sortOrder,  string movieGenre, string movieString, string actor, int movieID, int? page)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string movieGenre, string movieString, string actor, int? movieID, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -30,14 +30,14 @@ namespace MvcMovie.Controllers
             ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
             ViewBag.RatingSortParm = sortOrder == "Rating" ? "rating_desc" : "Rating";
 
-            //if (actor != null)
-            //{
-            //    page = 1;
-            //}
-            //else
-            //{
-            //    actor = currentFilter;
-            //}
+            if (actor != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                actor = currentFilter;
+            }
 
             ViewBag.CurrentFilter = actor;
             ViewBag.CurrentPage = page;
@@ -114,10 +114,16 @@ namespace MvcMovie.Controllers
                     break;
             }
 
+            if (movieID == null)
+            {
+                movieID = movies.First().ID;
+            }
+
             var movieGenreVM = new MovieGenreViewModel();
             movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
             movieGenreVM.movies = await PaginatedList<Movie>.CreateAsync(movies.AsNoTracking(), page ?? 1, 7);
             movieGenreVM.roles = roleQuery;
+            movieGenreVM.selectedMovie = movies.Where(x => x.ID == movieID).First();
 
             return View(movieGenreVM);
         }
@@ -130,6 +136,8 @@ namespace MvcMovie.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
+            var movieCastVM = new MovieCastViewModel();
+
             if (id == null)
             {
                 return NotFound();
@@ -142,7 +150,14 @@ namespace MvcMovie.Controllers
                 return NotFound();
             }
 
-            return View(movie);
+            movieCastVM.movie = movie;
+            movieCastVM.roles = from r in _context.MovieRole
+                                join m in _context.Movie on r.Movie equals m
+                                join a in _context.Actor on r.Actor equals a
+                                where r.Movie.ID == id
+                                select new LoadMovieRole { Actor = a.Name, Character = r.Character, Movie = m.Title };
+
+            return View(movieCastVM);
         }
 
         // GET: Movies/Create

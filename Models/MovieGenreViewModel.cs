@@ -9,6 +9,7 @@ namespace MvcMovie.Models
         public PaginatedList<Movie> movies;
         public IQueryable<LoadMovieRole> roles;
         public SelectList genres;
+        public Movie selectedMovie;
         public string movieGenre { get; set; }
     }
 }

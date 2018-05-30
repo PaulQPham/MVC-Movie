@@ -76,11 +76,19 @@ namespace MvcMovie.Controllers
         }
 
         // GET: Actors/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string actorName)
         {
-            if (id == null)
+
+
+            if (id == null && actorName == null)
             {
                 return NotFound();
+            }
+            else if (id == null)
+            {
+                id = (from m in _context.Actor
+                     where m.Name == actorName
+                     select m.ID).First();
             }
 
             var actor = await _context.Actor

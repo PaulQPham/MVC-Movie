@@ -1,52 +1,75 @@
-﻿@model MvcMovie.Models.Movie
+﻿@model MvcMovie.Models.MovieCastViewModel
 
 @{
-    ViewData["Title"] = @Model.Title;
+    ViewData["Title"] = @Model.movie.Title;
 }
 
-<h2>@Model.Title</h2>
+<h2>@Model.movie.Title</h2>
 
 <div>
     <h4>Details</h4>
     <hr />
     <dl class="dl-horizontal">
         <dd>
-            <img src=@Html.DisplayFor(model => model.Image) style="width:178px;height:264px;">
+            <img src=@Html.DisplayFor(model => model.movie.Image) style="width:178px;height:264px;">
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.movie.Title)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.movie.Title)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ReleaseDate)
+            @Html.DisplayNameFor(model => model.movie.ReleaseDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ReleaseDate)
+            @Html.DisplayFor(model => model.movie.ReleaseDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Genre)
+            @Html.DisplayNameFor(model => model.movie.Genre)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Genre)
+            @Html.DisplayFor(model => model.movie.Genre)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.movie.Price)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.movie.Price)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Rating)
+            @Html.DisplayNameFor(model => model.movie.Rating)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Rating)
+            @Html.DisplayFor(model => model.movie.Rating)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.movie.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
 
+<h2>Cast of @Model.movie.Title</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Actor</th>
+            <th>Character</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.roles)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Actor, "Details", "Actors", new { actorName = item.Actor })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Character)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

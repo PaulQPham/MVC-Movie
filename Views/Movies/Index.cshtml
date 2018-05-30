@@ -103,7 +103,7 @@
     Next
 </a>
 
-<h2>Cast of </h2>
+<h2>Cast of @Model.selectedMovie.Title</h2>
 
 <table class="table">
     <thead>
@@ -117,7 +117,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Actor)
+                    @Html.ActionLink(item.Actor, "Details", "Actors", new {actorName = item.Actor} )
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Character)
