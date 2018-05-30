@@ -116,8 +116,15 @@ namespace MvcMovie.Controllers
         }
 
         // GET: MovieRoles/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, string actorName, string movieTitle)
         {
+            if (actorName != null && movieTitle != null)
+            {
+                id = (from r in _context.MovieRole
+                     where r.Actor.Name == actorName && r.Movie.Title == movieTitle
+                     select r.ID).SingleOrDefault();
+            }
+
             if (id == null)
             {
                 return NotFound();

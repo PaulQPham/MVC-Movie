@@ -103,26 +103,30 @@
     Next
 </a>
 
-<h2>Cast of @Model.selectedMovie.Title</h2>
+@if (Model.selectedMovie != null)
+{
+    <h2>Cast of @Model.selectedMovie.Title</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Actor</th>
-            <th>Character</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.roles)
-        {
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.ActionLink(item.Actor, "Details", "Actors", new {actorName = item.Actor} )
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Character)
-                </td>
+                <th>Actor</th>
+                <th>Character</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.roles)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Actor, "Details", "Actors", new { actorName = item.Actor })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Character)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

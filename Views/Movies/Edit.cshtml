@@ -1,4 +1,4 @@
-﻿@model MvcMovie.Models.Movie
+﻿@model MvcMovie.Models.MovieCastViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,31 +12,36 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ID" />
+            <input type="hidden" asp-for="movie.ID" />
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="movie.Title" class="control-label"></label>
+                <input asp-for="movie.Title" class="form-control" />
+                <span asp-validation-for="movie.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ReleaseDate" class="control-label"></label>
-                <input asp-for="ReleaseDate" class="form-control" />
-                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                <label asp-for="movie.ReleaseDate" class="control-label"></label>
+                <input asp-for="movie.ReleaseDate" class="form-control" />
+                <span asp-validation-for="movie.ReleaseDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Genre" class="control-label"></label>
-                <input asp-for="Genre" class="form-control" />
-                <span asp-validation-for="Genre" class="text-danger"></span>
+                <label asp-for="movie.Genre" class="control-label"></label>
+                <input asp-for="movie.Genre" class="form-control" />
+                <span asp-validation-for="movie.Genre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                <label asp-for="movie.Price" class="control-label"></label>
+                <input asp-for="movie.Price" class="form-control" />
+                <span asp-validation-for="movie.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Rating" class="control-label"></label>
-                <input asp-for="Rating" class="form-control" />
-                <span asp-validation-for="Rating" class="text-danger"></span>
+                <label asp-for="movie.Rating" class="control-label"></label>
+                <input asp-for="movie.Rating" class="form-control" />
+                <span asp-validation-for="movie.Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="movie.Image" class="control-label"></label>
+                <input asp-for="movie.Image" class="form-control" />
+                <span asp-validation-for="movie.Image" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -48,7 +53,32 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+<h2>Cast of @Model.movie.Title</h2>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th>Actor</th>
+            <th>Character</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.roles)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Actor, "Details", "Actors", new { actorName = item.Actor })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Character)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", "MovieRoles", new { actorName = item.Actor, movieTitle = item.Movie})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

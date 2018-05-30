@@ -114,7 +114,7 @@ namespace MvcMovie.Controllers
                     break;
             }
 
-            if (movieID == null)
+            if (movieID == null && movies.Any())
             {
                 movieID = movies.First().ID;
             }
@@ -123,8 +123,11 @@ namespace MvcMovie.Controllers
             movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
             movieGenreVM.movies = await PaginatedList<Movie>.CreateAsync(movies.AsNoTracking(), page ?? 1, 7);
             movieGenreVM.roles = roleQuery;
-            movieGenreVM.selectedMovie = movies.Where(x => x.ID == movieID).First();
-
+            if (movies.Any())
+            {
+                movieGenreVM.selectedMovie = movies.Where(x => x.ID == movieID).First();
+            }
+            
             return View(movieGenreVM);
         }
 
@@ -171,7 +174,7 @@ namespace MvcMovie.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
+        public async Task<IActionResult> Create([Bind("ID,Title,ReleaseDate,Genre,Price,Rating,Image")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -185,6 +188,8 @@ namespace MvcMovie.Controllers
         // GET: Movies/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var movieCastVM = new MovieCastViewModel();
+
             if (id == null)
             {
                 return NotFound();
@@ -195,7 +200,15 @@ namespace MvcMovie.Controllers
             {
                 return NotFound();
             }
-            return View(movie);
+
+            movieCastVM.movie = movie;
+            movieCastVM.roles = from r in _context.MovieRole
+                                join m in _context.Movie on r.Movie equals m
+                                join a in _context.Actor on r.Actor equals a
+                                where r.Movie.ID == id
+                                select new LoadMovieRole { Actor = a.Name, Character = r.Character, Movie = m.Title };
+
+            return View(movieCastVM);
         }
 
         // POST: Movies/Edit/5
@@ -203,7 +216,7 @@ namespace MvcMovie.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Genre,Price,Rating,Image")] Movie movie)
         {
             if (id != movie.ID)
             {
@@ -256,6 +269,8 @@ namespace MvcMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            _context.MovieRole.RemoveRange(_context.MovieRole.Where(m => m.Movie.ID == id));
+            
             var movie = await _context.Movie.SingleOrDefaultAsync(m => m.ID == id);
             _context.Movie.Remove(movie);
             await _context.SaveChangesAsync();
