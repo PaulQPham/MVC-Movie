@@ -33,3 +33,11 @@
         display: none;
     }
 }
+
+#movieTable tr:hover {
+    color: #f0f8ed
+}
+
+.table-hover > tbody > tr:hover {
+    background-color: #f0f8ed;
+  }

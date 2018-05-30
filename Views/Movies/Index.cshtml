@@ -22,7 +22,7 @@
     </p>
 </form>
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th></th>
@@ -44,7 +44,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id ="movieTable">
         @foreach (var item in Model.movies)
         {
             <tr>
@@ -107,7 +107,7 @@
 {
     <h2>Cast of @Model.selectedMovie.Title</h2>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Actor</th>

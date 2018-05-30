@@ -70,8 +70,6 @@ namespace MvcMovie.Controllers
                     break;
             }
 
-
-            int pageNumber = (page ?? 1);
             return View(await PaginatedList<Actor>.CreateAsync(actors.AsNoTracking(), page ?? 1, 10));
         }
 
