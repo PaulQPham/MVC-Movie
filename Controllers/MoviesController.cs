@@ -109,6 +109,8 @@ namespace MvcMovie.Controllers
                     break;
             }
 
+            roleQuery = roleQuery.OrderBy(r => r.Actor);
+
             if (movieID == null && movies.Any())
             {
                 movieID = movies.First().ID;
