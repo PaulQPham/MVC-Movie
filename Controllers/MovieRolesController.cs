@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,8 @@ namespace MvcMovie.Controllers
 {
     public class MovieRolesController : Controller
     {
+        static string referrer;
+
         private readonly MvcMovieContext _context;
 
         public MovieRolesController(MvcMovieContext context)
@@ -137,6 +140,8 @@ namespace MvcMovie.Controllers
                 return NotFound();
             }
 
+            referrer = HttpContext.Request.Headers["Referer"].ToString();
+
             return View(movieRole);
         }
 
@@ -148,7 +153,8 @@ namespace MvcMovie.Controllers
             var movieRole = await _context.MovieRole.SingleOrDefaultAsync(m => m.ID == id);
             _context.MovieRole.Remove(movieRole);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            //return RedirectToAction(nameof(Index));
+            return Redirect(referrer);
         }
 
         private bool MovieRoleExists(int id)
