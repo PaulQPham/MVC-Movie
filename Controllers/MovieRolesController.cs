@@ -24,7 +24,7 @@ namespace MvcMovie.Controllers
         // GET: MovieRoles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.MovieRole.ToListAsync());
+            return View(await _context.MovieRole.Include(r => r.Actor).Include(r => r.Movie).ToListAsync());
         }
 
         // GET: MovieRoles/Details/5
@@ -133,8 +133,12 @@ namespace MvcMovie.Controllers
                 return NotFound();
             }
 
-            var movieRole = await _context.MovieRole
-                .SingleOrDefaultAsync(m => m.ID == id);
+            //var movieRole = await _context.MovieRole
+            //    .SingleOrDefaultAsync(m => m.ID == id);
+
+            var movieRole = await _context.MovieRole.Include(r => r.Actor).Include(r => r.Movie).SingleOrDefaultAsync(r => r.ID == id);
+
+
             if (movieRole == null)
             {
                 return NotFound();
