@@ -111,17 +111,17 @@ namespace MvcMovie.Controllers
 
             roleQuery = roleQuery.OrderBy(r => r.Actor);
 
-            if (movieID == null && movies.Any())
-            {
-                movieID = movies.First().ID;
-            }
+            //if (movieID == null && movies.Any())
+            //{
+            //    movieID = movies.First().ID;
+            //}
 
             var movieGenreVM = new MovieGenreViewModel();
             movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
             movieGenreVM.movies = await PaginatedList<Movie>.CreateAsync(movies.AsNoTracking(), page ?? 1, 7);
             movieGenreVM.roles = roleQuery;
 
-            if (movies.Any())
+            if (movies.Any() && movieID != null)
             {
                 movieGenreVM.selectedMovie = movies.Where(x => x.ID == movieID).First();
             }

@@ -50,7 +50,7 @@
         @foreach (var item in Model.movies)
         {
             <tr onclick="location.href = '@Url.Action("", new { currentFilter = ViewBag.CurrentFilter, movieID = item.ID, page = ViewBag.CurrentPage } )' "
-                bgcolor=@(item.ID == Model.selectedMovie.ID ? "#DFF0D8" : "#FFFFFF")>
+                bgcolor=@(Model.selectedMovie == null || item.ID != Model.selectedMovie.ID ? "#FFFFFF" : "#DFF0D8")>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.ID">
                         <img src=@Html.DisplayFor(modelItem => item.Image) style="width:67px;height:99px;">
