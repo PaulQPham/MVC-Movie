@@ -157,6 +157,11 @@ namespace MvcMovie.Controllers
             return Redirect(referrer);
         }
 
+        public async Task<IActionResult> Back()
+        {
+            return Redirect(referrer);
+        }
+
         private bool MovieRoleExists(int id)
         {
             return _context.MovieRole.Any(e => e.ID == id);

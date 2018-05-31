@@ -10,8 +10,8 @@ namespace MvcMovie.Models
     {
         public int ID { get; set; }
         public string Character { get; set; }
-        public virtual Actor Actor { get; set; }
-        public virtual Movie Movie { get; set; }
+        public Actor Actor { get; set; }
+        public Movie Movie { get; set; }
     }
     public class LoadMovieRole
     {
