@@ -120,6 +120,7 @@ namespace MvcMovie.Controllers
             movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
             movieGenreVM.movies = await PaginatedList<Movie>.CreateAsync(movies.AsNoTracking(), page ?? 1, 7);
             movieGenreVM.roles = roleQuery;
+
             if (movies.Any())
             {
                 movieGenreVM.selectedMovie = movies.Where(x => x.ID == movieID).First();
