@@ -130,7 +130,7 @@ namespace MvcMovie.Controllers
         }
 
         // GET: Actors/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, string newMovie, string newRole)
         {
             var movieCastVM = new MovieCastViewModel();
 
@@ -144,6 +144,20 @@ namespace MvcMovie.Controllers
             {
                 return NotFound();
             }
+
+            if (newMovie != null && newRole != null)
+            {
+                var role = new MovieRole
+                {
+                    Actor = _context.Actor.Where(a => a.ID == id).First(),
+                    Character = newRole,
+                    Movie = _context.Movie.Where(m => m.Title == newMovie).First()
+                };
+                _context.MovieRole.Add(role);
+            }
+            _context.SaveChanges();
+            newMovie = null;
+            newRole = null;
 
             movieCastVM.actor = _context.Actor.Where(a => a.ID == id).First();
             var movieRoles = from r in _context.MovieRole

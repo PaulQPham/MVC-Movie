@@ -97,44 +97,48 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        $('#addRow').hide();
-    </script>
-    <script>
-        $('#addRole').on('click', () => {
-          $('#addRow').toggle();
-          $('#btn-row').hide();
-        });
-        $('.form-group').validate();
-    </script>
-    <script>
-        $('#cancel').on('click', () => {
-          $('#addRow').toggle();
-          $('#btn-row').toggle();
-        });
-    </script>
-    <script>
-        $('#save').on('click', () => {
 
-
-        });
-    </script>
     <script>
-        $(function () {
+        $(document).ready(function () {
             $.validator.setDefaults({
                 ignore: [],
             });
-        });
 
-        $('#myForm').validate({
-            rules: {
-                newRole: {
-                    required: true
+            $('#myForm').validate({
+                rules: {
+                    newRole: {
+                        required: true
+                    }
+                }
+            })
+
+            $('#addRow').hide();
+
+            $('#addRole').on('click', () => {
+                $('#addRow').toggle();
+                $('#btn-row').hide();
+            });
+
+            $('#myForm').validate({
+                rules: {
+                    newRole: {
+                        required: true
+                    }
+                },
+                message: {
+                    newRole: {
+                        required: 'field is required'
+
+                    }
 
                 }
+            })
 
-            }
+            $('#cancel').on('click', () => {
+                $('#addRow').toggle();
+                $('#btn-row').toggle();
+            });
 
-        })
+        });
     </script>
 }
