@@ -79,8 +79,10 @@
                 <select asp-for="newMovie" asp-items="Model.movies" class="form-control"></select>
             </td>
             <td>
-                <input asp-for="newRole" class="form-control" />
-                <span asp-validation-for="newRole" class="text-danger"></span>
+                <div class="form-group">
+                    <input asp-for="newRole" class="form-control" id="newRole" />
+                    <span asp-validation-for="newRole" class="text-danger"></span>
+                </div>
             </td>
             <td>
                 <button type="button" class="btn btn-default" id="save">Save</button>
@@ -94,6 +96,9 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
     <script>
         $('#addRow').hide();
     </script>
@@ -101,12 +106,32 @@
         $('#addRole').on('click', () => {
           $('#addRow').toggle();
           $('#btn-row').hide();
+          $('#newRole').data('validator', null);
+          $.validator.unobtrusive.parse($('#newRole'));
         });
     </script>
     <script>
         $('#cancel').on('click', () => {
           $('#addRow').toggle();
           $('#btn-row').toggle();
+        });
+    </script>
+    <script>
+        $(function () {
+            $('#newRole').validate({
+                rules: {
+                    required: true
+                },
+                messages: {
+                    required: 'Please enter a role'
+                }
+            });
+        });
+    </script>
+    <script>
+        $('#save').on('click', () => {
+
+
         });
     </script>
 }

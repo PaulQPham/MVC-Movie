@@ -78,8 +78,47 @@
                 </td>
             </tr>
         }
+        <tr id="btn-row">
+            <td>
+                <button type="button" class="btn btn-default" id="addRole">Add</button>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr id="addRow">
+            <td>
+                <select asp-for="newActor" asp-items="Model.actors" class="form-control"></select>
+            </td>
+            <td>
+                <div class="form-group">
+                    <input asp-for="newRole" class="form-control" id="newRole" />
+                    <span asp-validation-for="newRole" class="text-danger"></span>
+                </div>
+            </td>
+            <td>
+                <button type="button" class="btn btn-default" id="save">Save</button>
+                <button type="button" class="btn btn-default" id="cancel">Cancel</button>
+            </td>
+        </tr>
     </tbody>
 </table>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+            $('#addRow').hide();
+    </script>
+    <script>
+        $('#addRole').on('click', () => {
+            $('#addRow').toggle();
+            $('#btn-row').hide();
+            $('#newRole').data('validator', null);
+            $.validator.unobtrusive.parse($('#newRole'));
+        });
+    </script>
+    <script>
+        $('#cancel').on('click', () => {
+            $('#addRow').toggle();
+            $('#btn-row').toggle();
+        });
+    </script>
 }

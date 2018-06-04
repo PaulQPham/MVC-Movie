@@ -14,9 +14,11 @@ namespace MvcMovie.Models
         [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
         [StringLength(30, MinimumLength = 3)]
         [Required]
-        public string newRole;
+        public string newRole { get; set; }
         public string newMovie;
+        public string newActor;
         public SelectList movies;
+        public SelectList actors;
         public IQueryable<LoadMovieRole> roles;
     }
 }
