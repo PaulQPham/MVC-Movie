@@ -50,6 +50,7 @@
         <tr>
             <th>Title</th>
             <th>Character</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -67,9 +68,45 @@
                 </td>
             </tr>
         }
+        <tr id="btn-row">
+            <td>
+                <button type="button" class="btn btn-default" id="addRole">Add</button>
+            </td>  
+            <td></td><td></td>
+        </tr>
+        <tr id="addRow">
+            <td>
+                <select asp-for="" asp-items=""></select>
+            </td>
+            <td>
+                <input asp-for="newRole" class="form-control" />
+                <span asp-validation-for="newRole" class="text-danger"></span>
+            </td>
+            <td>
+                <button type="button" class="btn btn-default" id="save">Save</button>
+                <button type="button" class="btn btn-default" id="cancel">Cancel</button>
+            </td>
+        </tr>
     </tbody>
 </table>
 
+
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $('#addRow').hide();
+    </script>
+    <script>
+        $('#addRole').on('click', () => {
+          $('#addRow').toggle();
+          $('#btn-row').hide();
+        });
+    </script>
+    <script>
+        $('#cancel').on('click', () => {
+          $('#addRow').toggle();
+          $('#btn-row').toggle();
+        });
+    </script>
 }

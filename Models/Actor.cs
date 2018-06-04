@@ -17,7 +17,6 @@ namespace MvcMovie.Models
         [Display(Name = "Birth Date")]
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
         [StringLength(30, MinimumLength = 3)]
         public string Hometown { get; set; }
         [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
