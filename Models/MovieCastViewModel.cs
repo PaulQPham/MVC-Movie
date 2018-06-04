@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace MvcMovie.Models
         [StringLength(30, MinimumLength = 3)]
         [Required]
         public string newRole;
+        public string newMovie;
+        public SelectList movies;
         public IQueryable<LoadMovieRole> roles;
     }
 }

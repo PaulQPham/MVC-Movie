@@ -146,11 +146,16 @@ namespace MvcMovie.Controllers
             }
 
             movieCastVM.actor = _context.Actor.Where(a => a.ID == id).First();
-            movieCastVM.roles = from r in _context.MovieRole
+            var movieRoles = from r in _context.MovieRole
                                 join m in _context.Movie on r.Movie equals m
                                 join a in _context.Actor on r.Actor equals a
                                 where r.Actor.ID == id
                                 select new LoadMovieRole { Actor = a.Name, Character = r.Character, Movie = m.Title };
+
+            movieCastVM.roles = movieRoles;
+            movieCastVM.movies = new SelectList(await (from m in _context.Movie
+                                 where !movieRoles.Any(r => r.Movie == m.Title)
+                                 select m.Title).Distinct().ToListAsync());
 
             return View(movieCastVM);
         }
