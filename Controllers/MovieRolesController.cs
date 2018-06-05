@@ -163,7 +163,6 @@ namespace MvcMovie.Controllers
             var movieRole = await _context.MovieRole.SingleOrDefaultAsync(m => m.ID == id);
             _context.MovieRole.Remove(movieRole);
             await _context.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
             return Redirect(referrer);
         }
 

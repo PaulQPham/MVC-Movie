@@ -92,55 +92,29 @@
         </tr>
     </tbody>
 </table>
-
+<div class="alert alert-info fade out" id="bsalert">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> This alert box could indicate a neutral informative or action
+</div>
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
     <script>
         $(document).ready(function () {
-            $.validator.setDefaults({
-                ignore: [],
-            });
-
-            $('#myForm').validate({
-                rules: {
-                    newRole: {
-                        required: true
-                    }
-                },
-                message: {
-                    newRole: {
-                        required: 'field is required'
-
-                    }
-
-                }
-            });
-        });
-    </script>
-    <script>
             $('#addRow').hide();
-    </script>
-    <script>
+
             $('#addRole').on('click', () => {
                 $('#addRow').toggle();
                 $('#btn-row').hide();
-                $('#newRole').data('validator', null);
-                $.validator.unobtrusive.parse($('#newRole'));
             });
-    </script>
-    <script>
+
             $('#cancel').on('click', () => {
                 $('#addRow').toggle();
                 $('#btn-row').toggle();
             });
-    </script>
-    <script>
 
             $('#save').click(function () {
-
                 $.ajax({
                     type: 'POST',
                     dataType: 'Json',
@@ -151,16 +125,14 @@
                         newMovie: $('#newMovie').val()
                     },
                     success: function (response) {
-                        alert("hi");
                         location.reload();
+
                     },
                     error: function (response) {
                         alert('error');
                     }
-
                 })
-
             });
-
+        });
     </script>
 }

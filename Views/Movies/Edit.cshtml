@@ -55,7 +55,7 @@
 </div>
 <h2>Cast of @Model.movie.Title</h2>
 <form id="myForm"></form>
-<table class="table">
+<table class="table" id="roleTable">
     <thead>
         <tr>
             <th>Actor</th>
@@ -93,7 +93,6 @@
             <td>
                 <div class="form-group">
                     <input asp-for="newRole" name="newRole" class="form-control" id="newRole" form="myForm" />
-                    <span asp-validation-for="newRole" class="text-danger" form="myForm"></span>
                 </div>
             </td>
             <td>
@@ -106,41 +105,51 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
+        $(document).ready(function () {
+            initializeAddRow();
+
+            $('#save').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'Json',
+                    url: '@Url.Action("Create", "MovieRoles")',
+                    data: {
+                        newRole: $('#newRole').val(),
+                        newActor: $('#newActor').val(),
+                        newMovie: '@Model.movie.Title'
+                    },
+                    success: function (response) {
+                        alert("hi");
+                        location.reload();
+                        //reloadTable();
+                    },
+                    error: function (response) {
+                        alert('error');
+                    }
+                })
+            });
+        });
+
+
+        //function reloadTable() {
+        //    $('#roleTable').load(document.URL + ' #roleTable');
+        //    $('#roleTable').ready(function () {
+        //        initializeAddRow();
+        //    });
+        //};
+
+        function initializeAddRow() {
             $('#addRow').hide();
-    </script>
-    <script>
-        $('#addRole').on('click', () => {
-            $('#addRow').toggle();
-            $('#btn-row').hide();
-            $('#newRole').data('validator', null);
-            $.validator.unobtrusive.parse($('#newRole'));
-        });
-    </script>
-    <script>
-        $('#cancel').on('click', () => {
-            $('#addRow').toggle();
-            $('#btn-row').toggle();
-        });
-    </script>
-    <script>
-        $('#save').click(function () {
-            $.ajax({
-                type: 'POST',
-                dataType: 'Json',
-                url: '@Url.Action("Create", "MovieRoles")',
-                data: {
-                    newRole: $('#newRole').val(),
-                    newActor: $('#newActor').val(),
-                    newMovie: '@Model.movie.Title'
-                },
-                success: function (response) {
-                    alert("Success: New role added!");
-                    location.reload();
-                },
-                error: function (response) {
-                    alert('error');
-                }
-            })
-        });
+
+            $('#addRole').on('click', () => {
+                $('#addRow').toggle();
+                $('#btn-row').hide();
+            });
+
+            $('#cancel').on('click', () => {
+                $('#addRow').toggle();
+                $('#btn-row').toggle();
+            });
+        };
     </script>
 }
