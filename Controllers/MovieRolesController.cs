@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MvcMovie.Models;
 
+
 namespace MvcMovie.Controllers
 {
     public class MovieRolesController : Controller
@@ -65,13 +66,11 @@ namespace MvcMovie.Controllers
                 Movie = _context.Movie.Where(m => m.Title == newMovie).First()
             };
 
-            if (ModelState.IsValid)
-            {
-                _context.Add(movieRole);
-                await _context.SaveChangesAsync();
-                return Redirect(HttpContext.Request.Headers["Referer"].ToString());
-            }
-            return View(movieRole);
+            _context.Add(movieRole);
+            await _context.SaveChangesAsync();
+            return Json(new { Result = "Success", Message = "New Role Added"} );
+
+     
         }
 
         // GET: MovieRoles/Edit/5

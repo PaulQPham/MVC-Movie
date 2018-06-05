@@ -86,8 +86,8 @@
                 </div>
             </td>
             <td>
-                <input type="submit" value="Save" class="btn btn-default" id="save" form="myForm"/>
-                <button type="button" class="btn btn-default" id="cancel" form="myForm">Cancel</button>
+                <input type="reset" value="Save" class="btn btn-default" id="save" form="myForm"/>
+                <input type="reset" value="Cancel" class="btn btn-default" id="cancel" form="myForm" />
             </td>
         </tr>
     </tbody>
@@ -152,16 +152,15 @@
                     },
                     success: function (response) {
                         alert("hi");
-
+                        location.reload();
                     },
                     error: function (response) {
                         alert('error');
-
                     }
 
                 })
 
             });
-            
+
     </script>
 }
