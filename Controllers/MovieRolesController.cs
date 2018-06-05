@@ -55,14 +55,21 @@ namespace MvcMovie.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Actor,Character,Movie")] MovieRole movieRole)
+    
+        public async Task<IActionResult> Create(string newRole, string newActor, string newMovie)
         {
+            var movieRole = new MovieRole
+            {
+                Actor = _context.Actor.Where(a => a.Name == newActor).First(),
+                Character = newRole,
+                Movie = _context.Movie.Where(m => m.Title == newMovie).First()
+            };
+
             if (ModelState.IsValid)
             {
                 _context.Add(movieRole);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Redirect(HttpContext.Request.Headers["Referer"].ToString());
             }
             return View(movieRole);
         }
