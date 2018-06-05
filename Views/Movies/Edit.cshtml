@@ -54,7 +54,7 @@
     <a asp-action="Index">Back to List</a>
 </div>
 <h2>Cast of @Model.movie.Title</h2>
-
+<form id="myForm"></form>
 <table class="table">
     <thead>
         <tr>
@@ -88,17 +88,17 @@
         </tr>
         <tr id="addRow">
             <td>
-                <select asp-for="newActor" asp-items="Model.actors" class="form-control"></select>
+                <select asp-for="newActor" asp-items="Model.actors" class="form-control" form="myForm" id="newActor"></select>
             </td>
             <td>
                 <div class="form-group">
-                    <input asp-for="newRole" class="form-control" id="newRole" />
-                    <span asp-validation-for="newRole" class="text-danger"></span>
+                    <input asp-for="newRole" name="newRole" class="form-control" id="newRole" form="myForm" />
+                    <span asp-validation-for="newRole" class="text-danger" form="myForm"></span>
                 </div>
             </td>
             <td>
-                <button type="button" class="btn btn-default" id="save">Save</button>
-                <button type="button" class="btn btn-default" id="cancel">Cancel</button>
+                <input type="reset" value="Save" class="btn btn-default" id="save" form="myForm" />
+                <input type="reset" value="Cancel" class="btn btn-default" id="cancel" form="myForm" />
             </td>
         </tr>
     </tbody>
@@ -120,6 +120,27 @@
         $('#cancel').on('click', () => {
             $('#addRow').toggle();
             $('#btn-row').toggle();
+        });
+    </script>
+    <script>
+        $('#save').click(function () {
+            $.ajax({
+                type: 'POST',
+                dataType: 'Json',
+                url: '@Url.Action("Create", "MovieRoles")',
+                data: {
+                    newRole: $('#newRole').val(),
+                    newActor: $('#newActor').val(),
+                    newMovie: '@Model.movie.Title'
+                },
+                success: function (response) {
+                    alert("Success: New role added!");
+                    location.reload();
+                },
+                error: function (response) {
+                    alert('error');
+                }
+            })
         });
     </script>
 }
