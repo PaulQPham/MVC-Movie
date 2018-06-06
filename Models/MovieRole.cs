@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace MvcMovie.Models
 {
-    public class MovieRole
+    public class MovieRole //Model created from CSV data to use in DB
     {
         public int ID { get; set; }
         public string Character { get; set; }
         public Actor Actor { get; set; }
         public Movie Movie { get; set; }
     }
-    public class LoadMovieRole
+    public class LoadMovieRole //Used to read in CSV data
     {
         public string Actor { get; set; }
         public string Character { get; set; }

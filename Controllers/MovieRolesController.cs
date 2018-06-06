@@ -59,6 +59,7 @@ namespace MvcMovie.Controllers
     
         public async Task<IActionResult> Create(string newRole, string newActor, string newMovie)
         {
+            //creates a new MovieRole and adds to DB
             var movieRole = new MovieRole
             {
                 Actor = _context.Actor.Where(a => a.Name == newActor).First(),
@@ -139,9 +140,6 @@ namespace MvcMovie.Controllers
                 return NotFound();
             }
 
-            //var movieRole = await _context.MovieRole
-            //    .SingleOrDefaultAsync(m => m.ID == id);
-
             var movieRole = await _context.MovieRole.Include(r => r.Actor).Include(r => r.Movie).SingleOrDefaultAsync(r => r.ID == id);
 
 
@@ -163,11 +161,13 @@ namespace MvcMovie.Controllers
             var movieRole = await _context.MovieRole.SingleOrDefaultAsync(m => m.ID == id);
             _context.MovieRole.Remove(movieRole);
             await _context.SaveChangesAsync();
+            //Returns to either Movie edit page or Actor edit page instead of MovieRoles/Index
             return Redirect(referrer);
         }
 
         public async Task<IActionResult> Back()
         {
+            //Returns to either Movie edit page or Actor edit page instead of MovieRoles/Index
             return Redirect(referrer);
         }
 

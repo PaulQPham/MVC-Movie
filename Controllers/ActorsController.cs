@@ -146,6 +146,7 @@ namespace MvcMovie.Controllers
             }
 
             movieCastVM.actor = _context.Actor.Where(a => a.ID == id).First();
+            //Select all roles for current actor
             var movieRoles = from r in _context.MovieRole
                                 join m in _context.Movie on r.Movie equals m
                                 join a in _context.Actor on r.Actor equals a
@@ -153,6 +154,7 @@ namespace MvcMovie.Controllers
                                 select new LoadMovieRole { Actor = a.Name, Character = r.Character, Movie = m.Title };
 
             movieCastVM.roles = movieRoles;
+            //Selects all movies actor is not in and creats a dropdown list
             movieCastVM.movies = new SelectList(await (from m in _context.Movie
                                  where !movieRoles.Any(r => r.Movie == m.Title)
                                  select m.Title).Distinct().ToListAsync());

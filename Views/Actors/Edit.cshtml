@@ -55,7 +55,7 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody><!--Display all roles for Actor-->
             @foreach (var item in Model.roles)
             {
                 <tr>
@@ -72,14 +72,14 @@
             }
         </tbody>
         <tfoot>
-            <tr id="btn-row">
+            <tr id="btn-row"><!--Button to toggle new row-->
                 <td>
                     <button type="button" class="btn btn-default" id="addRole">Add</button>
                 </td>
                 <td></td>
                 <td></td>
             </tr>
-            <tr id="addRow">
+            <tr id="addRow"><!--Hidden new row-->
                 <td>
                     <select asp-for="newMovie" asp-items="Model.movies" class="form-control" form="myForm" id="newMovie"></select>
                 </td>
@@ -107,7 +107,8 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
         $(document).ready(function () {
-            
+
+            //JS to toggle new row
             $('#addRow').toggle();
 
             $('#addRole').on('click', () => {
@@ -124,7 +125,9 @@
                 $('#btn-row').toggle();
             });
 
+            //Ajax call to create a new MovieRole
             $('#save').click(function () {
+                //JQuery Validation
                 if ($('#myForm').valid()) {
                     $.ajax({
                         type: 'POST',
