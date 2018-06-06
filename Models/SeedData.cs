@@ -29,7 +29,7 @@ namespace MvcMovie.Models
                     return;   // DB has been seeded
                 }
 
-                var csv = new CsvReader(new StreamReader("C:/Users/phampaul/source/repos/MvcMovie/MvcMovie/SeedData/Movies.txt"));
+                var csv = new CsvReader(new StreamReader("SeedData/Movies.txt"));
                 csv.Configuration.Delimiter = "|";
                 csv.Configuration.HeaderValidated = null;
                 csv.Configuration.MissingFieldFound = null;
@@ -53,7 +53,7 @@ namespace MvcMovie.Models
                 }
 
                 Console.WriteLine("Seeding Actors");
-                var csv = new CsvReader(new StreamReader("C:/Users/phampaul/source/repos/MvcMovie/MvcMovie/SeedData/Actors.txt"));
+                var csv = new CsvReader(new StreamReader("SeedData/Actors.txt"));
                 csv.Configuration.Delimiter = "|";
                 csv.Configuration.HeaderValidated = null;
                 csv.Configuration.MissingFieldFound = null;
@@ -75,7 +75,7 @@ namespace MvcMovie.Models
                     return;   // DB has been seeded
                 }
 
-                var csv = new CsvReader(new StreamReader("C:/Users/phampaul/source/repos/MvcMovie/MvcMovie/SeedData/MovieRoles.txt"));
+                var csv = new CsvReader(new StreamReader("SeedData/MovieRoles.txt"));
                 csv.Configuration.Delimiter = "|";
                 csv.Configuration.HeaderValidated = null;
                 csv.Configuration.MissingFieldFound = null;

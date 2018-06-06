@@ -17,3 +17,10 @@ Collateral|2004-08-06|Action|8.99|R|https://images-na.ssl-images-amazon.com/imag
 The Firm|1993-06-30|Drama|4.99|R|https://images-na.ssl-images-amazon.com/images/M/MV5BMTgxMjM5NDYwM15BMl5BanBnXkFtZTgwODkzMzk5MDE@._V1_SX300.jpg
 Rain Man|1988-12-16|Drama|4.99|R|https://images-na.ssl-images-amazon.com/images/M/MV5BMTQ4NTA1NDU3NV5BMl5BanBnXkFtZTcwODUwMTU2NA@@._V1_SX300.jpg
 Cocktail|1988-07-29|Drama|4.99|R|https://images-na.ssl-images-amazon.com/images/M/MV5BZDBhYTdkYzMtYTE5Yi00ZDg1LThiYmYtZDI3ZTA5NjVkZWY2XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg
+Blade Runner|1995-12-15|Sci-Fi|8.99|R|http://t0.gstatic.com/images?q=tbn:ANd9GcTzBrtjEYPZ9LdbAgkIib6W6u5S7fOm8XRlUkd9kCDbftfly3u_
+Blade Runner 2049|2017-10-16|Sci-Fi|12.99|R|http://t0.gstatic.com/images?q=tbn:ANd9GcTPzZknP1D3cmxl_h5_Dc2eb-3_CA-XML7lYSthbX4r_VYADgKD
+Cloud Atlas|2012-10-26|Sci-Fi|3.9|R|http://t0.gstatic.com/images?q=tbn:ANd9GcQZQhasO56in_vxYDa30rB9tzQg1wk6yKJkkdVoxG43hCJeYuEm
+Star Wars: The Last Jedi|2017-12-15|Sci-Fi|12.99|PG|http://t2.gstatic.com/images?q=tbn:ANd9GcRgcIU4MKHZkZNeDt_tAewyfwX7PAmSdj_7wdg_FInkZw8Um9F_
+Jupiter Ascending|2015-02-06|Sci-Fi|6.99|PG|http://t1.gstatic.com/images?q=tbn:ANd9GcTeJPqX4Q4LmHtQaQmOkR7P_nBST9nRdQVxDJiKOZun8jcQAPxi
+The Hitchhiker's Guide to the Galaxy|2005-04-29|Sci-Fi|2.99|PG|http://www.gstatic.com/tv/thumb/movieposters/35755/p35755_p_v8_am.jpg
+Interstellar|2014-10-26|Sci-Fi|10.99|PG|http://t1.gstatic.com/images?q=tbn:ANd9GcRf61mker2o4KH3CbVE7Zw5B1-VogMH8LfZHEaq3UdCMLxARZAB

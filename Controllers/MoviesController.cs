@@ -42,15 +42,17 @@ namespace MvcMovie.Controllers
             ViewBag.CurrentFilter = actor;
             ViewBag.CurrentPage = page;
 
+            //Selects all genres in DB
             IQueryable<string> genreQuery = from m in _context.Movie
                                             orderby m.Genre
                                             select m.Genre;
 
+            //Query for searching movies by actor
             IQueryable<string> actorQuery = from m in _context.MovieRole
-                                     
                                             where m.Actor.Name == actor
                                             select m.Movie.Title;
 
+            //Query to select all roles for selected movie
             IQueryable<LoadMovieRole> roleQuery = from r in _context.MovieRole
                             join m in _context.Movie on r.Movie equals m
                             join a in _context.Actor on r.Actor equals a
@@ -60,6 +62,7 @@ namespace MvcMovie.Controllers
             var movies = from m in _context.Movie
                          select m;
 
+            //Search filters
             if (!String.IsNullOrEmpty(movieString))
             {
                 movies = movies.Where(s => s.Title.Contains(movieString));
@@ -75,6 +78,7 @@ namespace MvcMovie.Controllers
                 movies = movies.Where(m => actorQuery.Contains(m.Title));
             }
 
+            //Sort params
             switch (sortOrder)
             {
                 case "name_desc":
@@ -110,11 +114,6 @@ namespace MvcMovie.Controllers
             }
 
             roleQuery = roleQuery.OrderBy(r => r.Actor);
-
-            //if (movieID == null && movies.Any())
-            //{
-            //    movieID = movies.First().ID;
-            //}
 
             var movieGenreVM = new MovieGenreViewModel();
             movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
@@ -156,6 +155,7 @@ namespace MvcMovie.Controllers
             }
 
             movieCastVM.movie = movie;
+            //Query all roles for movie
             movieCastVM.roles = from r in _context.MovieRole
                                 join m in _context.Movie on r.Movie equals m
                                 join a in _context.Actor on r.Actor equals a
@@ -204,6 +204,7 @@ namespace MvcMovie.Controllers
             }
 
             movieCastVM.movie = movie;
+            //Query all roles for movie
             var movieRoles = from r in _context.MovieRole
                              join m in _context.Movie on r.Movie equals m
                              join a in _context.Actor on r.Actor equals a
@@ -211,7 +212,7 @@ namespace MvcMovie.Controllers
                              select new LoadMovieRole { Actor = a.Name, Character = r.Character, Movie = m.Title };
 
             movieCastVM.roles = movieRoles;
-
+            //Query actors not currently having a role in movie and creating a dropdown list
             movieCastVM.actors = new SelectList(await (from a in _context.Actor
                                                        where !movieRoles.Any(r => r.Actor == a.Name)
                                                        select a.Name).Distinct().ToListAsync());

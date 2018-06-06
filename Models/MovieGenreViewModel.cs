@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace MvcMovie.Models
 {
+    //View used on movie page to display roles and genres not in Movie model
     public class MovieGenreViewModel
     { 
         public PaginatedList<Movie> movies;

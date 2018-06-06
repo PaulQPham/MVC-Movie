@@ -56,3 +56,4 @@ Tom Cruise|1962-07-03|"Syracuse, NY"|Thomas Cruise Mapother IV
 Val Kilmer|1959-12-31|" Los Angeles, California"| Val Edward Kilmer
 Viveca Lindfors|1920-12-29|"Uppsala, Uppsala lan, Sweden"|Elsa Viveca Torstensdotter Lindfors
 William Atherton|1947-07-30|"Orange, Connecticut, USA"|William Atherton Knight
+Tom Hanks|1956-07-09|"Concord, CA"|Thomas Jeffrey Hanks

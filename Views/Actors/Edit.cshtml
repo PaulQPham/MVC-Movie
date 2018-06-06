@@ -45,53 +45,58 @@
 </div>
 
 <h4>Movie Roles</h4>
-<form id="myForm"></form>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Character</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.roles)
-            {
+<form id="myForm" name="myForm">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <table class="table table-striped" id="rolesTable">
+        <thead>
             <tr>
+                <th>Title</th>
+                <th>Character</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.roles)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Movie, "Details", "Movies", new { title = item.Movie })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Character)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", "MovieRoles", new { actorName = item.Actor, movieTitle = item.Movie })
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr id="btn-row">
                 <td>
-                    @Html.ActionLink(item.Movie, "Details", "Movies", new { title = item.Movie })
+                    <button type="button" class="btn btn-default" id="addRole">Add</button>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr id="addRow">
+                <td>
+                    <select asp-for="newMovie" asp-items="Model.movies" class="form-control" form="myForm" id="newMovie"></select>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Character)
+                    <div class="form-group">
+                        <input asp-for="newRole" class="form-control" type="text" name="newRole" id="newRole" form="myForm" />
+                        <span asp-validation-for="newRole" class="text-danger"></span>
+                    </div>
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", "MovieRoles", new { actorName = item.Actor, movieTitle = item.Movie })
+                    <button type="reset" class="btn btn-primary" id="save" form="myForm">Save</button>
+                    <button type="reset" class="btn btn-default" id="cancel" form="myForm">Cancel</button>
                 </td>
             </tr>
-        }
-        <tr id="btn-row">
-            <td>
-                <button type="button" class="btn btn-default" id="addRole">Add</button>
-            </td>  
-            <td></td><td></td>
-        </tr>
-        <tr id="addRow">
-            <td>
-                <select asp-for="newMovie" asp-items="Model.movies" class="form-control" form="myForm" id="newMovie"></select>
-            </td>
-            <td>
-                <div class="form-group">
-                    <input asp-for="newRole" name="newRole" class="form-control" id="newRole" form="myForm"/>
-                    <span asp-validation-for="newRole" class="text-danger" form="myForm"></span>
-                </div>
-            </td>
-            <td>
-                <input type="reset" value="Save" class="btn btn-default" id="save" form="myForm"/>
-                <input type="reset" value="Cancel" class="btn btn-default" id="cancel" form="myForm" />
-            </td>
-        </tr>
-    </tbody>
-</table>
+        </tfoot>
+    </table>
+</form>
 <div class="alert alert-info fade out" id="bsalert">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Success!</strong> This alert box could indicate a neutral informative or action
@@ -102,11 +107,16 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
         $(document).ready(function () {
-            $('#addRow').hide();
+            
+            $('#addRow').toggle();
 
             $('#addRole').on('click', () => {
                 $('#addRow').toggle();
-                $('#btn-row').hide();
+                $('#btn-row').toggle();
+                $('input[name="newRole"]').rules("add", {
+                    required: true
+
+                })
             });
 
             $('#cancel').on('click', () => {
@@ -115,23 +125,25 @@
             });
 
             $('#save').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'Json',
-                    url: '@Url.Action("Create", "MovieRoles")',
-                    data: {
-                        newRole: $('#newRole').val(),
-                        newActor: '@Model.actor.Name',
-                        newMovie: $('#newMovie').val()
-                    },
-                    success: function (response) {
-                        location.reload();
-
-                    },
-                    error: function (response) {
-                        alert('error');
-                    }
-                })
+                if ($('#myForm').valid()) {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'Json',
+                        url: '@Url.Action("Create", "MovieRoles")',
+                        data: {
+                            newRole: $('#newRole').val(),
+                            newActor: '@Model.actor.Name',
+                            newMovie: $('#newMovie').val()
+                        },
+                        success: function (response) {
+                            alert('Success! Added new role.')
+                            location.reload();
+                        },
+                        error: function (response) {
+                            alert('error');
+                        }
+                    })
+                }
             });
         });
     </script>
