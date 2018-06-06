@@ -48,8 +48,7 @@ namespace MvcMovie.Controllers
                                             select m.Genre;
 
             //Query for searching movies by actor
-            IQueryable<string> actorQuery = from m in _context.MovieRole
-                                            where m.Actor.Name == actor
+            IQueryable<string> actorQuery = from m in _context.MovieRole.Where(r => r.Actor.Name.Contains(actor))
                                             select m.Movie.Title;
 
             //Query to select all roles for selected movie

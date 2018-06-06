@@ -9,3 +9,14 @@ C:\Users\phampaul\source\repos\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.0\MvcMovi
 C:\Users\phampaul\source\repos\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.0\MvcMovie.dll
 C:\Users\phampaul\source\repos\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.0\MvcMovie.pdb
 C:\Users\phampaul\source\repos\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.0\MvcMovie.csprojResolveAssemblyReference.cache
+K:\NRL\Systems\Project\phampaul\MvcMovie\MvcMovie\bin\Debug\netcoreapp2.0\MvcMovie.deps.json
+K:\NRL\Systems\Project\phampaul\MvcMovie\MvcMovie\bin\Debug\netcoreapp2.0\MvcMovie.runtimeconfig.json
+K:\NRL\Systems\Project\phampaul\MvcMovie\MvcMovie\bin\Debug\netcoreapp2.0\MvcMovie.runtimeconfig.dev.json
+K:\NRL\Systems\Project\phampaul\MvcMovie\MvcMovie\bin\Debug\netcoreapp2.0\MvcMovie.dll
+K:\NRL\Systems\Project\phampaul\MvcMovie\MvcMovie\bin\Debug\netcoreapp2.0\MvcMovie.pdb
+K:\NRL\Systems\Project\phampaul\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.0\MvcMovie.csprojResolveAssemblyReference.cache
+K:\NRL\Systems\Project\phampaul\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.0\MvcMovie.csproj.CoreCompileInputs.cache
+K:\NRL\Systems\Project\phampaul\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.0\MvcMovie.AssemblyInfoInputs.cache
+K:\NRL\Systems\Project\phampaul\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.0\MvcMovie.AssemblyInfo.cs
+K:\NRL\Systems\Project\phampaul\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.0\MvcMovie.dll
+K:\NRL\Systems\Project\phampaul\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.0\MvcMovie.pdb
